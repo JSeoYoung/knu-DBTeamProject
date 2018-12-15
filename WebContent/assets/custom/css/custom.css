@@ -1,0 +1,70 @@
+#order_table thead{
+
+  display: block;
+  background-color: #eeeeee;
+}
+#order_table th{
+  height: 45px;
+}
+
+#order_table tr{
+  height: 40px;
+}
+
+th:nth-of-type(1), td:nth-of-type(1) { width:200px; } /*메뉴*/
+th:nth-of-type(2), td:nth-of-type(2) { width:50; } /*수량*/
+th:nth-of-type(3), td:nth-of-type(3) { width:150px; }/*단가*/
+th:nth-of-type(4), td:nth-of-type(4) { width:150px; }/*합계*/
+/*tr:nth-child(even) { background: #eee; }*/
+
+#order_table tbody{
+  display: block;
+  overflow: auto;
+  height:350px;
+}
+
+#order_table{
+
+margin: 5px;
+}
+
+
+.sidenav {
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+/*    background-color: #000000;*/
+
+    overflow-x: hidden;
+  /*  padding-top: 100px;*/
+}
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #ff3838;
+
+    display: block;
+    font-style: bold;
+}
+
+
+.sidenav a:hover,
+.sidenav a:hover {
+  color: #ffffff !important;
+  background-color: #eb0000 !important;
+  border-color: #eb0000 !important;
+}
+.main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
