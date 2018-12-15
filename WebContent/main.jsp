@@ -57,10 +57,13 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<%
+					
+					request.setCharacterEncoding("UTF-8");	//한글 깨짐현상 방지
+
 						if (session.getAttribute("signedUserName") != null) {
 							out.println("<li class='nav-item'>");
 							out.println(session.getAttribute("signedUserName") + "님 반갑습니다.</li>");
-							out.println("<li class='nav-item'><a class='nav-link link text-black display-4' href='cafe_register.jsp'>마이페이지</a></li>");
+							out.println("<li class='nav-item'><a class='nav-link link text-black display-4' href='cafe_register.jsp'>MY PAGE</a></li>");
 
 						}
 					%>
@@ -158,76 +161,69 @@
 					<div class="mbr-gallery-layout-default">
 						<div>
 							<div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="동문">
-									<div href="#lb-gallery2-p" data-slide-to="0"
-										data-toggle="modal">
-										<img src="assets/images/mbr-864x1080-800x1000.jpg" alt=""
-											title=""><span class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">Type
-											caption here</span>
-									</div>
-								</div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="">
-									<div href="#lb-gallery2-p" data-slide-to="1"
-										data-toggle="modal">
-										<img src="assets/images/gallery07.jpg" alt="" title=""><span
-											class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">Type
-											caption here</span>
-									</div>
-								</div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="동문">
-									<div href="#lb-gallery2-p" data-slide-to="2"
-										data-toggle="modal">
-										<img src="assets/images/mbr-720x1080-720x1080.jpg" alt=""
-											title=""><span class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">Type
-											caption here</span>
-									</div>
-								</div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="북문">
-									<div href="#lb-gallery2-p" data-slide-to="3"
-										data-toggle="modal">
-										<img src="assets/images/mbr-1-720x1080-720x1080.jpg" alt=""
-											title=""><span class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">Type
-											caption here</span>
-									</div>
-								</div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="북문, 쪽문, 동문, 서문">
-									<div href="#lb-gallery2-p" data-slide-to="4"
-										data-toggle="modal">
-										<img src="assets/images/mbr-1-720x1080-720x1080.jpg" alt=""
-											title=""><span class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">Type
-											caption here</span>
-									</div>
-								</div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="쪽문">
-									<div href="#lb-gallery2-p" data-slide-to="5"
-										data-toggle="modal">
-										<img src="assets/images/mbr-1-720x1080-720x1080.jpg" alt=""
-											title=""><span class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">스타벅스
-											커피</span>
-									</div>
-								</div>
-								<div class="mbr-gallery-item mbr-gallery-item--p2"
-									data-video-url="false" data-tags="동문">
-									<div href="#lb-gallery2-p" data-slide-to="6"
-										data-toggle="modal">
-										<img src="assets/images/mbr-1620x1080-800x533.jpg" alt=""
-											title=""><span class="icon-focus"></span><span
-											class="mbr-gallery-title mbr-fonts-style display-7">코나
-											커피</span>
-									</div>
-								</div>
+							
+							<%
+							String url="jdbc:oracle:thin:@localhost:1521:oraknu";
+							String user="kdhong";
+							String pass = "kdhong";  
+							Connection conn = null;  
+							String query = null;
+							//
+							try {       
+								Class.forName("oracle.jdbc.driver.OracleDriver");       
+								System.out.println("드라이버 검색 성공!");  
+							}catch(ClassNotFoundException e) {        
+								System.err.println("error = " + e.getMessage());        
+								System.exit(1);  
+							} 
+							
+							try{        
+								conn = DriverManager.getConnection(url,user,pass);  
+							}catch(SQLException e) {        
+								System.err.println("sql error = " + e.getMessage());        
+								System.exit(1);  
+							} 
+							  
+							try {
+								 
+								conn.setAutoCommit(false);       
+								Statement stmt=null;
+								stmt = conn.createStatement();
+
+								 
+								query="select c_id, h_id, c_name,cc_id,  (select cc_name from cafe_category where cc_id = c.cc_id) as cc_name from cafe c";
+								
+								ResultSet rs=stmt.executeQuery(query);
+								
+								while(rs.next()) {
+									String cafe_name = rs.getString("c_name");
+									String cafe_category_name = rs.getString("cc_name");
+									int cafe_id = rs.getInt(1);
+									int host_id = rs.getInt(2);
+									
+									out.println("<div class='mbr-gallery-item mbr-gallery-item--p2' data-video-url='false' data-tags='"+ cafe_category_name + "'>");
+									out.println("<div href='#lb-gallery2-p' data-slide-to='0' data-toggle='modal'>");
+									out.println("<img src='assets/images/mbr-864x1080-800x1000.jpg'><span class='icon-focus'></span><span class='mbr-gallery-title mbr-fonts-style display-7'");
+									out.println(cafe_name);
+									out.println("</span>");
+						
+									out.println("</div>");
+									out.println("</div>");
+									
+								
+								}
+								rs.close();
+							    
+							    conn.commit();       
+							    conn.setAutoCommit(true);  
+							    stmt.close();
+							    conn.close();
+							} catch(Exception e) {       
+								System.err.println("sql error = " + e.getMessage());         
+							}
+							
+							%>
+							
 							</div>
 						</div>
 						<div class="clearfix"></div>

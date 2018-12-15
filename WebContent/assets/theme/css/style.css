@@ -464,6 +464,11 @@ text-align: center;
   color: white;
 }
 
+a.visited{
+	 background-color: #ddd;
+  color: black;
+}
+
 div.scrollmenu {
   background-color: #eeeeee;
     border-radius: 5px;
@@ -500,14 +505,4 @@ div.scrollmenu a:active {
   border-color: white;
   padding: 14px;
   background-color: white;
-}
-
-
-.col.custom-col{
-  margin : 5px;
-  border-radius: 5px;
-  border-color: #ffffff;
-  color: black;
-  padding: 10px;
-  background-color: #eeeeee;
 }

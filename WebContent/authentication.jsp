@@ -13,6 +13,8 @@
 
    
    <%
+   
+   request.setCharacterEncoding("UTF-8");
       String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
       String user = "dbtp";
       String pass = "dbtp";

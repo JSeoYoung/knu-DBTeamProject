@@ -77,9 +77,10 @@
 
 			<h5>환영합니다.</h5>
 			<hr>
-			<a href="manage_cafe.jsp">카페관리</a> <a href="#services">매출관리</a> <a
-				href="#clients">회원정보</a> <a href="cafe_register.jsp">카페등록</a> <a
-				href="category_register.jsp">카테고리등록</a> <a href="menu_register.jsp">메뉴등록</a>
+			<a class="btn btn-primary"  href="manage_cafe.jsp">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
+				href="#clients">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
+				href="category_register.jsp">카테고리등록</a> 
+				<hr>
 		</div>
 
 		<div class="col-md-10">
@@ -92,12 +93,13 @@
 				<div class="container container-table">
 
 					<div class="container scroll">
-						<table class="table table-hover" cellspacing="0">
+						<table class="table table-hover"   style="height: 400px;	overflow: auto;  display: block; " >
 							<colgroup>
 								<col width="10%" />
 								<col width="20%" />
-								<col width="20%" />
-								<col width="20%" />
+								<col width="15%" />
+								<col width="10%" />
+								<col width="15%" />
 								<col width="10%" />
 								<col width="10%" />
 								<col width="10%" />
@@ -108,7 +110,9 @@
 									<th>순번</th>
 									<th>카페 이름</th>
 									<th>시작날짜</th>
+									<th>카페 위치</th>
 									<th>전화번호</th>
+								
 									<th>메뉴등록</th>
 									<th>결제내역</th>
 									<th>포스기</th>
@@ -121,6 +125,9 @@
 
 
 								<%
+								
+								request.setCharacterEncoding("UTF-8");	//한글 깨짐현상 방지
+
 									String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
 									String user = "dbtp";
 									String pass = "dbtp";
@@ -150,7 +157,8 @@
 
 										String userid = (String) session.getAttribute("signedUserSid");
 
-										query = "select * from cafe where h_id=? order by c_start_date";
+										query = "select c_id, c_name, h_id, cc_id, c_tel, c_addr, c_img, c_start_date, c_intro, (select cc_name from cafe_category where cc_id = c.cc_id) as cc_name from cafe c where c.h_id=? order by c.c_start_date";
+									
 										pstmt = conn.prepareStatement(query);
 										pstmt.setString(1, userid);
 										ResultSet rs = pstmt.executeQuery();
@@ -159,6 +167,8 @@
 											int cafe_id = rs.getInt(1);
 											String cafe_name = rs.getString("c_name");
 											String cafe_tel = rs.getString("c_tel");
+											String cafe_cc_name = rs.getString("cc_name");
+											
 											Date cafe_start_date = rs.getDate("c_start_date");
 											System.out.println("cafe name: " + cafe_name);
 											System.out.println("cafe tel: " + cafe_tel);
@@ -170,11 +180,11 @@
 
 											out.println("<tr>");
 
-											out.println("<td class='body-item mbr-fonts-style display-7'>");
+											out.println("<td class='mbr-fonts-style display-7'>");
 											out.println(cnt);
 											out.println("</td>");
 
-											out.println("<td class='body-item mbr-fonts-style display-7'>");
+											out.println("<td class='mbr-fonts-style display-7'>");
 											out.println(cafe_name);
 											out.println("</td>");
 
@@ -183,24 +193,28 @@
 											out.println("</td>");
 
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
+											out.println(cafe_cc_name);
+											out.println("</td>");
+											
+											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											out.println(cafe_tel);
 											out.println("</td>");
 
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											
-											out.println("<button class='btn-primary display-4'>메뉴등록</button>");
+											out.println("<a class='btn-primary display-4' href='menu_register.jsp?cid=" + cafe_id + "&cname=" +cafe_name+"'>메뉴등록</a>");
 											out.println("</td>");
 											
 
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											
-											out.println("<button class='btn-primary display-4'>결제내역</button>");
+											out.println("<a class='btn-primary display-4'>결제내역</a>");
 											out.println("</td>");
 											
 											
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											
-											out.println("<button class='btn-primary display-4'>웹포스</button>");
+											out.println("<a class='btn-primary display-4' href='get_pos_items.jsp?cid="+ cafe_id +"'>웹포스</a>");
 											out.println("</td>");
 
 											out.println("</tr>");

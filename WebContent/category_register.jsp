@@ -74,6 +74,7 @@
 
 		<div class="sidenav col-md-2">
 			<%
+			request.setCharacterEncoding("UTF-8");
 				String username = (String) session.getAttribute("signedUserName");
 			%>
 			<h5><%=username%>님
@@ -81,11 +82,14 @@
 
 			<h5>환영합니다.</h5>
 			<hr>
-			<a href="manage_cafe.jsp">카페관리</a> 
+				<a class="btn btn-white-outline" href="manage_cafe.jsp">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
+				href="#clients">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-primary"
+				href="category_register.jsp">카테고리등록</a> 
+				<hr>
+			<!-- <a href="manage_cafe.jsp">카페관리</a> 
 			 <a href="#services">매출관리</a> <a
 				href="#clients">회원정보</a> <a href="cafe_register.jsp">카페등록</a> <a
-				href="category_register.jsp">카테고리등록</a> <a
-				href="menu_register.jsp">메뉴등록</a>
+				href="category_register.jsp">카테고리등록</a>-->
 		</div>
 
 
@@ -107,7 +111,6 @@
 										<option value="default">카페 이름</option>
 
 										<%
-											request.setCharacterEncoding("euc-kr"); //한글 깨짐현상 방지를 위해
 
 											String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
 											String user = "dbtp";

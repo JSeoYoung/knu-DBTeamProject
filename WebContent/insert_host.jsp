@@ -11,8 +11,7 @@
 <body>
 	
 	<%
-   		 request.setCharacterEncoding("euc-kr"); 	//ÇÑ±Û ±úÁüÇö»ó ¹æÁö¸¦ À§ÇØ
-	
+	request.setCharacterEncoding("UTF-8");	//ÇÑ±Û ±úÁüÇö»ó ¹æÁö
 
 		String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
 		String user = "dbtp";

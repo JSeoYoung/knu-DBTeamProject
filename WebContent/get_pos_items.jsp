@@ -27,8 +27,7 @@
 <link rel="stylesheet" href="assets/theme/css/style.css">
 <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css"
 	type="text/css">
-<link rel="stylesheet" href="assets/custom/css/custom.css"
-	type="text/css">
+<link rel="stylesheet" href="assets/custom/css/custom.css"	type="text/css">
 
 
 
@@ -53,7 +52,7 @@
 			</button>
 			<div class="menu-logo">
 				<div class="navbar-brand">
-					<span class="navbar-logo"> <a href="index.html"> <img
+					<span class="navbar-logo"> <a href="main.jsp"> <img
 							src="assets/images/-202x108.png" alt="Mobirise" title=""
 							style="height: 3.8rem;">
 					</a>
@@ -63,16 +62,14 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-					<li class="nav-item"><a
-						class="nav-link link text-black display-4" href="webPos.html">
-							MY POS </a></li>
+<li class='nav-item'><a class='nav-link link text-black display-4' href='cafe_register.jsp'>MY PAGE</a></li>
 					<li class="nav-item"><a
 						class="nav-link link text-black display-4"
 						href="https://mobirise.com"> About Us </a></li>
 				</ul>
-				<div class="navbar-buttons mbr-section-btn">
+			<div class="navbar-buttons mbr-section-btn">
 					<a class="btn btn-sm btn-primary-outline display-4"
-						href="page1.html#header15-a">로그인</a>
+						href="logout.jsp">로그아웃</a>
 				</div>
 			</div>
 		</nav>
@@ -127,7 +124,9 @@
 
 
 		<div class="container col-md-8">
-			<ul class="nav nav-pills nav-justified" role="tablist">
+		<nav class="scroll">
+			<ul class="nav nav-pills nav-justified scroll" role="tablist">
+			
 				<!-- 탭 메뉴 !! 이 부분에 카테고리를 추가해 주세요 ! -->
 
 				<%
@@ -148,7 +147,7 @@
 					try {
 						conn = DriverManager.getConnection(url, user, pass);
 					} catch (SQLException e) {
-						System.err.println("sql error = " + e.getMessage());
+						System.err.println("sql error= " + e.getMessage());
 						System.exit(1);
 					}
 
@@ -158,26 +157,31 @@
 						PreparedStatement pstmt = null;
 
 						//temporary
-						String input_cafename = "KONA";
+						request.setCharacterEncoding("UTF-8");
+						String cafe_id = request.getParameter("cid");
 
-						query = "select mc_id, mc_name from menu_category where c_id=(select c_id from cafe where c_name=?)"; //c_name이 input_cafename인 cafe의 c_id를 가져온후, mc_id와 mc_name을 가져옴
+
+
+						query = "select mc_id, mc_name from menu_category where c_id=?"; //mc_id와 mc_name을 가져옴
 
 						pstmt = conn.prepareStatement(query);
 
-						pstmt.setString(1, input_cafename); //cafename이 KONA인 카페의 mc_id와 mc_name을 가져오기 위해서
+						System.out.println(query);
+
+						pstmt.setString(1, cafe_id); //cafename이 KONA인 카페의 mc_id와 mc_name을 가져오기 위해서
 
 						ResultSet rs = pstmt.executeQuery();
 
 						query = "select m_name, m_price from menu where mc_id=?";
-
+						System.out.println(query);
 						pstmt = conn.prepareStatement(query);
 
 						ResultSet rs1 = null;
 						// 메뉴
-						
+
 						boolean flag = false;
 						while (rs.next()) {
-	
+
 							int id = rs.getInt(1); //mc_id
 							String menu_category_name = rs.getString("mc_name"); //mc_name
 
@@ -187,33 +191,34 @@
 
 							out.println("<li class='nav-item'>");
 							if(flag == false){
-								
+
 							out.println(" <a class='nav-link active'  data-toggle='pill'  href='#" + id + "'>" +
 									 menu_category_name + "</a>");
 							flag = true;
 							}
 							else{
-								
+
 								out.println(" <a class='nav-link'  data-toggle='pill'  href='#" + id + "'>" +
 										 menu_category_name + "</a>");
-							
+
 							}
 							out.println("</li>");
 							// 가격 및 메뉴
 						}
 				%>
-
+				
 			</ul>
+			</nav>
 			<!--  이까지 탭 메뉴를 가져오는 코드  -->
-			<div class="tab-content">
+			<div class="tab-content" style="height: 540px;	overflow: auto;  " id="menu_items">
 				<!--  이 부분에는 메뉴 아이템들이 들어감 -->
 				<%
 
-				query = "select mc_id, mc_name from menu_category where c_id=(select c_id from cafe where c_name=?) order by mc_id"; //c_name이 input_cafename인 cafe의 c_id를 가져온후, mc_id와 mc_name을 가져옴
+				query = "select mc_id, mc_name from menu_category where c_id=? order by mc_id"; //c_name이 input_cafename인 cafe의 c_id를 가져온후, mc_id와 mc_name을 가져옴
 
 				pstmt = conn.prepareStatement(query);
 
-				pstmt.setString(1, input_cafename); //cafename이 KONA인 카페의 mc_id와 mc_name을 가져오기 위해서
+				pstmt.setString(1, cafe_id); //cafename이 KONA인 카페의 mc_id와 mc_name을 가져오기 위해서
 
 				ResultSet rs2 = pstmt.executeQuery();
 
@@ -222,13 +227,13 @@
 				pstmt = conn.prepareStatement(query);
 
 				ResultSet rs3 = null;
-				
+
 				flag = false;
-					while (rs2.next()) { //메뉴 카테고리를 읽어오는 코드 
-						
+					while (rs2.next()) { //메뉴 카테고리를 읽어오는 코드
+
 							int category_id = rs2.getInt(1); //mc_id
-	
-							//	메뉴 카테고리 이름  가져오기 
+
+							//	메뉴 카테고리 이름  가져오기
 							if(flag == false){
 								out.println("<div id='" + category_id + "' class='container tab-pane active'>");
 								flag = true;
@@ -236,32 +241,30 @@
 							out.println("<div id='" + category_id + "' class='container tab-pane fade'>");
 							}
 							//각 메뉴 카테고리마다 아이템을 가져옴.
-							int cnt = 1;	
-							out.println("<div class='row'>");
-							
+							int cnt = 1;
+							out.println("<div class='row align-items-center'  >");
+
 							pstmt.setInt(1, category_id);
 							rs3=pstmt.executeQuery();
-							
+
 							while (rs3.next()) {
 							String menu_name=rs3.getString("m_name");
-							
-							int menu_price=rs3.getInt(2);
-							
-							System.out.println(menu_name+"  "+menu_price);
-							
-							if (cnt % 5 == 0) {
-								out.println("</div>");
-								out.println("<div class='row'>");
-							}
 
-								out.println("<div class='col custom-col btn-white-outline menu-item'>");
-								out.println("<p class='m_name'>" + menu_name + "</p>");
+							int menu_price=rs3.getInt(2);
+
+							System.out.println(menu_name+"  "+menu_price);
+
+
+								out.println("<div class='col custom-col col-md-2 btn-white-outline menu-item' style='height:125px;'>");
+								out.println("<div class='m_name'>" + menu_name + "</div>" );
 								out.println("<hr>");
-								out.println("<p class='m_price'>"+ menu_price + "</p>");
+								
+								out.println("<div class='m_price' id='" + menu_price + "'>" + menu_price + "원" + "</div>");
+								//out.println("<p class='m_price'>"+ menu_price + "</p>" + "원");
 								out.println("</div>");
 								cnt++;
-								
-								
+
+
 							}
 							out.println("</div>");
 							out.println("</div>");
@@ -358,7 +361,8 @@
 		$('.menu-item').click(
 				function() {
 					var m_name = $(this).find('.m_name').text();
-					var m_price = $(this).find('.m_price').text();
+					//var m_price = $(this).find('.m_price').text();
+					var m_price = $(this).find('.m_price').attr('id');
 					var flag = 0;
 					$("#order_table tr").each(
 							function() {

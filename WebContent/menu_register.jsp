@@ -83,9 +83,15 @@
 
 			<h5>환영합니다.</h5>
 			<hr>
-			<a href="manage_cafe.jsp">카페관리</a> <a href="#services">매출관리</a> <a
-				href="#clients">회원정보</a> <a href="cafe_register.jsp">카페등록</a> <a
-				href="category_register.jsp">카테고리등록</a> <a href="menu_register.jsp">메뉴등록</a>
+			<a class="btn btn-white-outline" href="manage_cafe.jsp" id="fontweight4">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
+				href="#clients">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
+				href="category_register.jsp">카테고리등록</a> 
+				<hr>
+				
+			<!--  <a href="manage_cafe.jsp">카페관리</a> 
+			<a href="#services">매출관리</a> 
+			<a href="#clients">회원정보</a> <a href="cafe_register.jsp">카페등록</a> <a
+				href="category_register.jsp">카테고리등록</a>--> 
 		</div>
 
 
@@ -95,133 +101,85 @@
 					class="mbr-section-title align-left pb-3 mbr-fonts-style display-2">메뉴
 					등록</h3>
 
+<% 
+String cafe_id = request.getParameter("cid");
+String cafe_name = (String)request.getParameter("cname"); 
+request.setCharacterEncoding("UTF-8");
+%>
+<h3 class="mbr-section-title align-left pb-3 mbr-fonts-style"><%=cafe_name %>
+					</h3>
+
 				<!-- /.row -->
 				<div class="form-container">
+					
+					<%
+					String redirectUrl = "insert_menu.jsp?cid=" + cafe_id+"&cname=" + cafe_name;
+					%>
 					<form class="mbr-form" action="insert_menu.jsp" method="post">
 
-<div class = "row">
-							<div class="col-md-6 multi-horizontal">
 
-						<div class="form-group">
-							<select class="form-control" id="cafe_name" name="cc_name">
-								<option value="default">카페 이름</option>
+								<div class="form-group">
+									<select class="form-control" name="mc_name">
+										<option value="default">카테고리 이름</option>
 
-								<%
-									String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
-									String user = "dbtp";
-									String pass = "dbtp";
-									Connection conn = null;
-									String query = null;
-									String sql = null;
-									int result;
+										<%
+											String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
+											String user = "dbtp";
+											String pass = "dbtp";
+											Connection conn = null;
+											String query = null;
+											String sql = null;
+											int result;
 
-									try {
-										Class.forName("oracle.jdbc.driver.OracleDriver");
-										System.out.println("드라이버 검색 성공!");
-									} catch (ClassNotFoundException e) {
-										System.err.println("error = " + e.getMessage());
-										System.exit(1);
-									}
+											try {
+												Class.forName("oracle.jdbc.driver.OracleDriver");
+												System.out.println("드라이버 검색 성공!");
+											} catch (ClassNotFoundException e) {
+												System.err.println("error = " + e.getMessage());
+												System.exit(1);
+											}
 
-									try {
-										conn = DriverManager.getConnection(url, user, pass);
-									} catch (SQLException e) {
-										System.err.println("connect sql error = " + e.getMessage());
-										System.exit(1);
-									}
+											try {
+												conn = DriverManager.getConnection(url, user, pass);
+											} catch (SQLException e) {
+												System.err.println("connect sql error = " + e.getMessage());
+												System.exit(1);
+											}
 
-									try {
-										conn.setAutoCommit(false);
-										Statement stmt = conn.createStatement();
+											try {
+												conn.setAutoCommit(false);
+												Statement stmt = conn.createStatement();
 
-										String userid = (String) session.getAttribute("signedUserSid");
+												String userid = (String) session.getAttribute("signedUserSid");
 
-										sql = "SELECT * FROM cafe where h_id = " + userid;
-										ResultSet rs = stmt.executeQuery(sql);
-										System.out.println(sql);
+												sql = "SELECT * FROM menu_category where c_id =" + cafe_id;
+												ResultSet rs = stmt.executeQuery(sql);
+												System.out.println(sql);
 
-										while (rs.next()) {
-											int cafe_id = rs.getInt(1);
-											String cafe_name = rs.getString("c_name");
+												while (rs.next()) {
 
-											//	System.out.println("menu category id = " + menu_id + "menu category name = " + menu_name);
-											out.println("<option value='" + cafe_id + "'>" + cafe_name + "</option>");
-										}
-										rs.close();
-										conn.commit();
-										conn.setAutoCommit(true);
-										stmt.close();
-										conn.close();
+													int mc_id = rs.getInt(1);
+							
+													String mc_name = rs.getString("mc_name");
+													System.out.println("menu category id = " + mc_id + "menu category name = " + mc_name);
+													out.println("<option value='" + mc_id + "'>" + mc_name + "</option>");
+												}
+												rs.close();
+												conn.commit();
+												conn.setAutoCommit(true);
+												stmt.close();
+												conn.close();
 
-									} catch (Exception e) {
-										System.err.println("sql error = " + e.getMessage());
-									}
-								%>
+											} catch (Exception e) {
+												System.err.println("sql error = " + e.getMessage());
+											}
+										%>
 
-							</select>
-						</div>
+									</select>
+								</div>
 
-</div>
-							<div class="col-md-6 multi-horizontal">
-
-						<div class="form-group">
-							<select class="form-control" id="menu_category_name"
-								name="cc_name">
-								<option value="default">메뉴 카테고리 이름</option>
-
-								<%
-									Connection conn2 = null;
-									String query2 = null;
-									String sql2 = null;
-									int result2;
-
-									try {
-										Class.forName("oracle.jdbc.driver.OracleDriver");
-										System.out.println("드라이버 검색 성공!");
-									} catch (ClassNotFoundException e) {
-										System.err.println("error = " + e.getMessage());
-										System.exit(1);
-									}
-
-									try {
-										conn2 = DriverManager.getConnection(url, user, pass);
-									} catch (SQLException e) {
-										System.err.println("connect sql error = " + e.getMessage());
-										System.exit(1);
-									}
-
-									try {
-										conn2.setAutoCommit(false);
-										Statement stmt2 = conn2.createStatement();
-
-										String cafe_id = (String) session.getAttribute("signedUserSid");
-
-										sql2 = "SELECT * FROM menu_category where c_id = ";
-										ResultSet rs2 = stmt2.executeQuery(sql);
-										System.out.println(sql);
-
-										while (rs2.next()) {
-											int mc_id = rs2.getInt(1);
-											String cafe_name = rs2.getString("c_name");
-											String mc_name = rs2.getString("mc_name");
-											System.out.println("menu category id = " + mc_id + "menu category name = " + mc_name);
-											out.println("<option value='" + mc_id + "'>" + cafe_name + "</option>");
-										}
-										rs2.close();
-										conn2.commit();
-										conn2.setAutoCommit(true);
-										stmt2.close();
-										conn2.close();
-
-									} catch (Exception e) {
-										System.err.println("sql error = " + e.getMessage());
-									}
-								%>
-
-							</select>
-						</div>
-</div>
-</div>
+							
+							
 
 						<div class="row">
 							<div class="col-md-7 multi-horizontal">
@@ -232,6 +190,8 @@
 								</div>
 							</div>
 
+							<!-- c_id전달을 위함 -->
+							<input type=hidden value = "<%=cafe_id %>" name="c_id">
 							<div class="col-md-5 multi-horizontal">
 
 

@@ -11,7 +11,7 @@
 <body>
 	
 	<%
-   		// request.setCharacterEncoding("euc-kr"); 	//한글 깨짐현상 방지를 위해
+	request.setCharacterEncoding("UTF-8");	//한글 깨짐현상 방지
 	
 
 		String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
