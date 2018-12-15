@@ -60,7 +60,7 @@
 						if (session.getAttribute("signedUserName") != null) {
 							out.println("<li class='nav-item'>");
 							out.println(session.getAttribute("signedUserName") + "님 반갑습니다.</li>");
-							out.println("<li class='nav-item'><a class='nav-link link text-black display-4' href='webPos.html'>MYPOS</a></li>");
+							out.println("<li class='nav-item'><a class='nav-link link text-black display-4' href='cafe_register.jsp'>마이페이지</a></li>");
 
 						}
 					%>

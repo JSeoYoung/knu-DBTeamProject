@@ -82,7 +82,7 @@
 			<h5>환영합니다.</h5>
 			<hr>
 			<a href="manage_cafe.jsp">카페관리</a> 
-			<a href="#services">매출관리</a> <a
+			 <a href="#services">매출관리</a> <a
 				href="#clients">회원정보</a> <a href="cafe_register.jsp">카페등록</a> <a
 				href="category_register.jsp">카테고리등록</a> <a
 				href="menu_register.jsp">메뉴등록</a>
@@ -92,27 +92,19 @@
 		<div class="col-md-10">
 			<div class="container center">
 				<h3
-					class="mbr-section-title align-left pb-3 mbr-fonts-style display-2">카페
+					class="mbr-section-title align-left pb-3 mbr-fonts-style display-2">카테고리
 					등록</h3>
 
 				<!-- /.row -->
 				<div class="form-container">
-					<form class="mbr-form" action="insert_cafe.jsp" method="post">
+					<form class="mbr-form" action="insert_category.jsp" method="post">
 						<div class="row">
 
 							<div class="col-md-6 multi-horizontal">
 
 								<div class="form-group">
-									<input class="form-control px-3" type="text"
-										placeholder="카페 이름" name="c_name">
-								</div>
-							</div>
-
-							<div class="col-md-6 multi-horizontal">
-
-								<div class="form-group">
 									<select class="form-control" id="cafe_category" name="cc_name">
-										<option value="default">카페 카테고리</option>
+										<option value="default">카페 이름</option>
 
 										<%
 											request.setCharacterEncoding("euc-kr"); //한글 깨짐현상 방지를 위해
@@ -144,14 +136,18 @@
 												conn.setAutoCommit(false);
 												Statement stmt = conn.createStatement();
 
-												sql = "SELECT * FROM cafe_category";
+												String userid = (String) session.getAttribute("signedUserSid");
+
+												sql = "SELECT * FROM cafe where h_id = " + userid;
 												ResultSet rs = stmt.executeQuery(sql);
+												System.out.println(sql);
 
 												while (rs.next()) {
-													int cc_id = rs.getInt(1);
-													String cc_name = rs.getString("cc_name");
-													System.out.println("cafe category id = " + cc_id + "cafe category name = " + cc_name);
-													out.println("<option value='" + cc_id + "'>" + cc_name + "</option>");
+													int cafe_id = rs.getInt(1);
+													String cafe_name = rs.getString("c_name");
+													
+												//	System.out.println("menu category id = " + menu_id + "menu category name = " + menu_name);
+													out.println("<option value='" + cafe_id + "'>" + cafe_name + "</option>");
 												}
 												rs.close();
 												conn.commit();
@@ -167,73 +163,24 @@
 									</select>
 								</div>
 							</div>
-						</div>
-
-
-						<!--전화번호 -->
-						<div class="form-group">
-							<input type="text" class="form-control px-3" name="c_tel"
-								id="cellPhone" data-form-field="Tel" placeholder="카페 전화번호"
-								required="" minlength="12" maxlength="13" id="tel-header15-11">
-						</div>
-						<div class="form-group">
-							<input class="form-control px-3" type="text" name="c_addr"
-								placeholder="카페 주소" required="">
-						</div>
-
-
-						<div class="form-group">
-							<textarea class="form-control px-3" rows="3" placeholder="카페 설명"
-								name="c_intro"></textarea>
-						</div>
-
-						<div class="form-group">
-							<label>사진 등록</label> <input type="file">
-						</div>
-
-
-
-
-						<div class="row container">카페 시작 날짜</div>
-
-						<div class="row">
-							<div class="col-md-4 multi-horizontal">
+							
+							
+							<div class="col-md-6 multi-horizontal">
 
 								<div class="form-group">
-
-									<select class="form-control" id="cafe_start_year"
-										name="c_start_year">
-										<option value="default">년</option>
-
-									</select>
+									<input class="form-control px-3" type="text"
+										placeholder="카테고리 이름" name="c_name">
 								</div>
 							</div>
-							<div class="col-md-4 multi-horizontal">
-
-
-								<div class="form-group">
-									<select class="form-control" id="cafe_start_month"
-										name="c_start_month">
-										<option value="default">월</option>
-
-									</select>
-								</div>
-							</div>
-							<div class="col-md-4 multi-horizontal">
-
-								<div class="form-group">
-									<select class="form-control" id="cafe_start_day"
-										name="c_start_day">
-										<option value="default">일</option>
-
-									</select>
-								</div>
-							</div>
+							
 						</div>
 
 
 
-						<button type="submit" class="btn btn-primary">카페 등록</button>
+
+
+
+						<button type="submit" class="btn btn-primary">카테고리 등록</button>
 					</form>
 
 
@@ -265,59 +212,6 @@
 	<script src="assets/theme/js/script.js"></script>
 	<script src="assets/custom/js/custom.js"></script>
 
-	<script>
-		function appendYear() {
-
-			var date = new Date();
-
-			var year = date.getFullYear();
-
-			var selectValue = document.getElementById("cafe_start_year");
-
-			var optionIndex = 0;
-
-			for (var i = year - 100; i <= year; i++) {
-
-				selectValue.add(new Option(i, i), optionIndex++);
-
-			}
-
-		}
-
-		function appendMonth() {
-
-			var selectValue = document.getElementById("cafe_start_month");
-
-			var optionIndex = 0;
-
-			for (var i = 1; i <= 12; i++) {
-
-				selectValue.add(new Option(i, i), optionIndex++);
-
-			}
-
-		}
-
-		function appendDay() {
-
-			var selectValue = document.getElementById("cafe_start_day");
-
-			var optionIndex = 0;
-
-			for (var i = 1; i <= 31; i++) {
-
-				selectValue.add(new Option(i, i), optionIndex++);
-
-			}
-
-		}
-
-		$(document).ready(function() {
-			appendYear();
-			appendMonth();
-			appendDay();
-		});
-	</script>
 </body>
 
 </html>

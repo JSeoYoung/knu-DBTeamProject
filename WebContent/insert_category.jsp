@@ -6,11 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메뉴등록</title>
+<title>카페등록</title>
 </head>
 <body>
 	
 	<%
+   		// request.setCharacterEncoding("euc-kr"); 	//한글 깨짐현상 방지를 위해
 	
 
 		String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
@@ -21,7 +22,7 @@
 		String sql = null;
 		int result; 
 		
-		String redirectUrl = "menu_register.jsp";
+		String redirectUrl = "category_register.jsp";
 
 		
 		try {
@@ -51,7 +52,7 @@
 			String h_sid = session.getAttribute("signedUserSid").toString();//toString인지 아닌지는 모르겠당!!
 
 
-			 sql="insert into menu_category values(menu_seq_id.nextval,?,?)"; //mc_id mc_name c_id
+			 sql="insert into menu_category values(cc_seq_id.nextval,?,?)"; //mc_id mc_name c_id
 
 			//boolean flag = false;
 			

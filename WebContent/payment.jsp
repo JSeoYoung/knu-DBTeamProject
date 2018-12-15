@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <%@ page language="java" import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -18,7 +19,7 @@
 		
 		try {       
 			Class.forName("oracle.jdbc.driver.OracleDriver");       
-			System.out.println("µå¶óÀÌ¹ö °Ë»ö ¼º°ø!");  
+			System.out.println("ë“œë¼ì´ë²„ ê²€ìƒ‰ ì„±ê³µ!");  
 		}catch(ClassNotFoundException e) {        
 			System.err.println("error = " + e.getMessage());        
 			System.exit(1);  
@@ -39,10 +40,10 @@
 			//temporary
 			String input_cafename="KONA";
 			int input_amout=18000;
-			String input_payment="Ä«µå";
+			String input_payment="ì¹´ë“œ";
 			int input_number_of_menu=3;
 			String[] input_menu_category= {"coffee","latte","coffee"};
-			String[] input_menu_name= {"¾Æ¸Ş¸®Ä«³ë", "³ìÂ÷¶ó¶¼", "¿¡½ºÇÁ·¹¼Ò"};
+			String[] input_menu_name= {"ì•„ë©”ë¦¬ì¹´ë…¸", "ë…¹ì°¨ë¼ë–¼", "ì—ìŠ¤í”„ë ˆì†Œ"};
 			int[] input_qty= {3,2,1};	
 			
 			query="select nvl(max(o_id),0) from corder";

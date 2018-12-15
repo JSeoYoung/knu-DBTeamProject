@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
 <%
-	//1. ±âÁ¸ÀÇ ¼¼¼Ç µ¥ÀÌÅÍ¸¦ ¸ğµÎ »èÁ¦
+	//1. ê¸°ì¡´ì˜ ì„¸ì…˜ ë°ì´í„°ë¥¼ ëª¨ë‘ ì‚­ì œ
 	session.invalidate();
 
-	//2. ¸ŞÀÎ ÆäÀÌÁö·Î ÀÌµ¿½ÃÅ´
+	//2. ë©”ì¸ í˜ì´ì§€ë¡œ ì´ë™ì‹œí‚´
 	response.sendRedirect("main.jsp");
 %>
 

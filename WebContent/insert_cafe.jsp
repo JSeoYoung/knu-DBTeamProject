@@ -1,17 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Ä«Æäµî·Ï</title>
+<meta charset="UTF-8">
+<title>ì¹´í˜ë“±ë¡</title>
 </head>
 <body>
 	
 	<%
-   		 request.setCharacterEncoding("euc-kr"); 	//ÇÑ±Û ±úÁüÇö»ó ¹æÁö¸¦ À§ÇØ
+   		 request.setCharacterEncoding("euc-kr"); 	//í•œê¸€ ê¹¨ì§í˜„ìƒ ë°©ì§€ë¥¼ ìœ„í•´
 	
 
 		String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
@@ -24,7 +24,7 @@
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			System.out.println("µå¶óÀÌ¹ö °Ë»ö ¼º°ø!");
+			System.out.println("ë“œë¼ì´ë²„ ê²€ìƒ‰ ì„±ê³µ!");
 		} catch (ClassNotFoundException e) {
 			System.err.println("error = " + e.getMessage());
 			System.exit(1);
@@ -50,8 +50,8 @@
 			String input_c_start_date=null;  //2018-11-12
 			String input_c_intro = null;
 			
-			//session¿¡ ÀúÀåÇØµĞ sid¸¦ °¡Á®¿À´Â°Í
-			String h_sid = session.getAttribute("signedUserSid").toString();//toStringÀÎÁö ¾Æ´ÑÁö´Â ¸ğ¸£°Ú´ç!!
+			//sessionì— ì €ì¥í•´ë‘” sidë¥¼ ê°€ì ¸ì˜¤ëŠ”ê²ƒ
+			String h_sid = session.getAttribute("signedUserSid").toString();//toStringì¸ì§€ ì•„ë‹Œì§€ëŠ” ëª¨ë¥´ê² ë‹¹!!
 
 
 			 sql="insert into cafe values(cafe_seq_id.nextval,?,?,?,?,?,?,?,?)"; //c_id, c_name, h_sid, cc_id, c_tel, c_addr, c_img, c_start_date
@@ -89,18 +89,18 @@
 
 			result = pstmt.executeUpdate();
 		    
-			if(result == 1){ //¼º°øÇÑ ¿­ÀÇ °ª
+			if(result == 1){ //ì„±ê³µí•œ ì—´ì˜ ê°’
 			
 				out.println("<script>");
-				out.println("alert('Á¤»óÀûÀ¸·Î µî·Ï µÇ¾ú½À´Ï´Ù.');" + "location.href='"+ redirectUrl+"';");
+				out.println("alert('ì •ìƒì ìœ¼ë¡œ ë“±ë¡ ë˜ì—ˆìŠµë‹ˆë‹¤.');" + "location.href='"+ redirectUrl+"';");
 				out.println("</script>");
-				System.out.println("cafe insert ¼º°ø!");
+				System.out.println("cafe insert ì„±ê³µ!");
 			}
 			else{			
 				out.println("<script>");
-				out.println("alert('°ªÀ» Á¤È®ÇÏ°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.');" + "location.href='"+ redirectUrl+"';");
+				out.println("alert('ê°’ì„ ì •í™•í•˜ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.');" + "location.href='"+ redirectUrl+"';");
 				out.println("</script>");
-				System.out.println("cafe insert ½ÇÆĞ!!");
+				System.out.println("cafe insert ì‹¤íŒ¨!!");
 			
 			}
 			
@@ -113,7 +113,7 @@
 		    
 	
 		} catch (Exception e) {
-			out.println("<script>alert('°ªÀ» Á¤È®ÇÏ°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.');</script>");
+			out.println("<script>alert('ê°’ì„ ì •í™•í•˜ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.');</script>");
 			System.err.println("sql error = " + e.getMessage());
 		}
 	%>

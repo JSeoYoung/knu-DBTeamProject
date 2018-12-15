@@ -1,10 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-   pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page language="java" import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
+
 <title>LOGIN</title>
 </head>
 <body>
@@ -19,7 +21,7 @@
 
       try {
          Class.forName("oracle.jdbc.driver.OracleDriver");
-         System.out.println("µå¶óÀÌ¹ö °Ë»ö ¼º°ø!");
+         System.out.println("ë“œë¼ì´ë²„ ê²€ìƒ‰ ì„±ê³µ!");
       } catch (ClassNotFoundException e) {
          System.err.println("error = " + e.getMessage());
          System.exit(1);
@@ -71,25 +73,25 @@
                
                session.setAttribute("signedUserName", dbName);
                session.setAttribute("signedUserSid", dbSid);
-               redirectUrl = "cafe_register.jsp";
-               System.out.println("Á¸ÀçÇÏ´Â È¸¿øÀÔ´Ï´Ù.");
+               redirectUrl = "manage_cafe.jsp";
+               System.out.println("ì¡´ì¬í•˜ëŠ” íšŒì›ì…ë‹ˆë‹¤.");
             }
             
          }
          
-         if(!flag){ //È¸¿øÀÌ Á¸ÀçÇÏÁö ¾ÊÀ» ¶§!
+         if(!flag){ //íšŒì›ì´ ì¡´ì¬í•˜ì§€ ì•Šì„ ë•Œ!
             out.println("<script>");
-            out.println("alert('ID ¶Ç´Â ºñ¹Ğ¹øÈ£°¡  Æ²¸³´Ï´Ù.');" + "location.href='"+ redirectUrl+"';");
+            out.println("alert('ID ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€  í‹€ë¦½ë‹ˆë‹¤.');" + "location.href='"+ redirectUrl+"';");
             out.println("</script>");
-            System.out.println("ID ¶Ç´Â ºñ¹Ğ¹øÈ£°¡  Æ²¸³´Ï´Ù.");
+            System.out.println("ID ë˜ëŠ” ë¹„ë°€ë²ˆí˜¸ê°€  í‹€ë¦½ë‹ˆë‹¤.");
 
          }
          else{
             
             out.println("<script>");
-            out.println("alert('"+ dbName+"´Ô, È¯¿µÇÕ´Ï´Ù!');" + "location.href='"+ redirectUrl+"';" );
+            out.println("alert('"+ dbName+"ë‹˜, í™˜ì˜í•©ë‹ˆë‹¤!');" + "location.href='"+ redirectUrl+"';" );
             out.println("</script>");
-            System.out.println("·Î±×ÀÎ ¼º°ø!.");
+            System.out.println("ë¡œê·¸ì¸ ì„±ê³µ!.");
 
          }
          

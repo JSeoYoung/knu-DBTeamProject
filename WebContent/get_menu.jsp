@@ -1,10 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <%@ page language="java" import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 		//
 		try {       
 			Class.forName("oracle.jdbc.driver.OracleDriver");       
-			System.out.println("µå¶óÀÌ¹ö °Ë»ö ¼º°ø!");  
+			System.out.println("ë“œë¼ì´ë²„ ê²€ìƒ‰ ì„±ê³µ!");  
 		}catch(ClassNotFoundException e) {        
 			System.err.println("error = " + e.getMessage());        
 			System.exit(1);  
