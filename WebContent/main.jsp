@@ -164,8 +164,8 @@
 							
 							<%
 							String url="jdbc:oracle:thin:@localhost:1521:oraknu";
-							String user="kdhong";
-							String pass = "kdhong";  
+							String user="dbtp";
+							String pass = "dbtp";  
 							Connection conn = null;  
 							String query = null;
 							//
@@ -198,16 +198,16 @@
 								while(rs.next()) {
 									String cafe_name = rs.getString("c_name");
 									String cafe_category_name = rs.getString("cc_name");
-									int cafe_id = rs.getInt(1);
+									String cafe_id = rs.getString("c_id");
 									int host_id = rs.getInt(2);
 									
 									out.println("<div class='mbr-gallery-item mbr-gallery-item--p2' data-video-url='false' data-tags='"+ cafe_category_name + "'>");
-									out.println("<div href='#lb-gallery2-p' data-slide-to='0' data-toggle='modal'>");
-									out.println("<img src='assets/images/mbr-864x1080-800x1000.jpg'><span class='icon-focus'></span><span class='mbr-gallery-title mbr-fonts-style display-7'");
+									out.println("<a href='get_cafe_info.jsp?cid="+cafe_id +"&cname="+cafe_name +"'>");
+									/*이미지는 추후에 넣기*/
+									out.println("<img src='assets/images/mbr-864x1080-800x1000.jpg'><span class='mbr-gallery-title mbr-fonts-style display-7'>");
 									out.println(cafe_name);
-									out.println("</span>");
+									out.println("</span></a>");
 						
-									out.println("</div>");
 									out.println("</div>");
 									
 								

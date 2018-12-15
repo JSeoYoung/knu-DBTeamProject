@@ -202,19 +202,19 @@
 
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											
-											out.println("<a class='btn-primary display-4' href='menu_register.jsp?cid=" + cafe_id + "&cname=" +cafe_name+"'>메뉴등록</a>");
+											out.println("<a class='btn-primary display-4' style='padding: 6px; margin-right:0.3rem; border-radius: 3px;' href='menu_register.jsp?cid=" + cafe_id + "&cname=" +cafe_name+"'>메뉴등록</a>");
 											out.println("</td>");
 											
 
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											
-											out.println("<a class='btn-primary display-4'>결제내역</a>");
+											out.println("<a class='btn-primary display-4' style='padding: 6px; margin-right:0.3rem; border-radius: 3px;'>결제내역</a>");
 											out.println("</td>");
 											
 											
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
 											
-											out.println("<a class='btn-primary display-4' href='get_pos_items.jsp?cid="+ cafe_id +"'>웹포스</a>");
+											out.println("<a class='btn-primary display-4' style='padding: 6px; margin-right:0.3rem; border-radius: 3px;' href='get_pos_items.jsp?cid="+ cafe_id +"'>웹포스</a>");
 											out.println("</td>");
 
 											out.println("</tr>");
