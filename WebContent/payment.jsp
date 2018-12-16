@@ -1,29 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    <%@ page language="java" import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 		<%
 		String url="jdbc:oracle:thin:@localhost:1521:oraknu";
-		String user="dbtp";
-		String pass ="dbtp";  
+		String user="seoyoung";
+		String pass = "2016117305";  
 		Connection conn = null;  
 		String sql = null;  
 		String query = null;
-		String query1 = null;
-		String query2 = null;
-		String cid = request.getParameter("cid");
-		String payment = request.getParameter("payment");
-		String input_payment = null;
 		
 		try {       
 			Class.forName("oracle.jdbc.driver.OracleDriver");       
-			System.out.println("µå¶óÀÌ¹ö °Ë»ö ¼º°ø!");  
+			System.out.println("ë“œë¼ì´ë²„ ê²€ìƒ‰ ì„±ê³µ!");  
 		}catch(ClassNotFoundException e) {        
 			System.err.println("error = " + e.getMessage());        
 			System.exit(1);  
@@ -42,85 +38,39 @@
 			PreparedStatement pstmt=null;
 			
 			//temporary
+			String input_cafename="KONA";
+			int input_amout=18000;
+			String input_payment="ì¹´ë“œ";
+			int input_number_of_menu=3;
+			String[] input_menu_category= {"coffee","latte","coffee"};
+			String[] input_menu_name= {"ì•„ë©”ë¦¬ì¹´ë…¸", "ë…¹ì°¨ë¼ë–¼", "ì—ìŠ¤í”„ë ˆì†Œ"};
+			int[] input_qty= {3,2,1};	
 			
-			query2= "select c_name from cafe where c_id ="+cid;
-			
-			ResultSet rs2 = stmt.executeQuery(query2);
-			rs2.next();
-			String input_cafename=rs2.getString(1);
-			rs2.close();
-			stmt.close();
-			
-			if(payment.equals("1")){
-				input_payment="Ä«µå";
-			}
-			else if(payment.equals("2")){
-				input_payment="Çö±İ";
-			}
-			
-			System.out.println(input_cafename);
-			
-			//int number = 0;
-			
-			stmt=conn.createStatement();
-			query1="select nvl(max(o_id),0) from corder";
-			ResultSet rs=stmt.executeQuery(query1);
+			query="select nvl(max(o_id),0) from corder";
+			ResultSet rs=stmt.executeQuery(query);
 			rs.next();
 			int index=rs.getInt(1)+1;
-			System.out.println(index);
-			System.out.println(input_cafename);
-			System.out.println(cid);
 			rs.close();
-			stmt.close();
 			
-			//String T_menu ;
-			//int T_qty ;
-			//int T_price ;
-			int T_total = 0;
-			
-			stmt=conn.createStatement();
-			query = "select sum(t_total) w from TEST_TT";
-			ResultSet rs1=stmt.executeQuery(query);
-			
-			while(rs1.next()){
-				// Test_TT ÀÇ º¯¼ö 4°¡Áö¸¦ ºÒ·¯¿È
-				T_total += rs1.getInt(1);
-				System.out.println(T_total);
-			}
-			rs1.close();
-			stmt.close();
-			//String pay_ = request.getParameter("payment");
-			
-			sql="insert into corder values(?,(select sysdate from dual),?,?,?)";
-			System.out.println("1");
-			
+		    sql="insert into corder values(?,(select sysdate from dual),(select c_id from cafe where c_name=?),?,?)";
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("2");
 			pstmt.setInt(1, index);
-			pstmt.setInt(2,Integer.parseInt(cid));
-			pstmt.setInt(3,T_total);
-			pstmt.setString(4,"Ä«µå");
-			System.out.println("3");
-			pstmt.executeUpdate();
-			System.out.println("4");
-			System.out.println("clear corder!!!!");
+			pstmt.setString(2,input_cafename);
+			pstmt.setInt(3,input_amout);
+			pstmt.setString(4,input_payment);
+			pstmt.executeUpdate();	
 			
-			stmt=conn.createStatement();
-			query = "select * from TEST_TT";
-			rs1=stmt.executeQuery(query);
+			sql="insert into order_menu values(?,(select a.m_id from menu a, menu_category b, cafe c where c.c_name=? and c.c_id=b.c_id and b.mc_name=? and b.mc_id=a.mc_id and a.m_name=?),?)";
+			pstmt=conn.prepareStatement(sql);
+			for(int i=0;i<input_number_of_menu;i++) {
+				pstmt.setInt(1, index);
+				pstmt.setString(2, input_cafename);
+				pstmt.setString(3, input_menu_category[i]);
+				pstmt.setString(4, input_menu_name[i]);
+				pstmt.setInt(5, input_qty[i]);
+				pstmt.executeUpdate();
+			}
 			
-			// 2¹øÂ° ÆÄ¶ó¹ÌÅÍ : cafe ÀÇ ÀÌ¸§ , 3¹øÂ° ÆÄ¶ó¹ÌÅÍ : menu ÀÇ ÀÌ¸§
-			sql="insert into order_menu values(?,(select a.m_id from menu a, cafe c where c.c_id=? and c.c_id=a.c_id and a.m_name=?),?)";
-	         pstmt=conn.prepareStatement(sql);
-	         while(rs1.next()){
-	        	 	pstmt.setInt(1, index);
-		            pstmt.setInt(2, Integer.parseInt(cid));
-		            pstmt.setString(3, rs1.getString("T_MENU"));
-		            pstmt.setInt(4, rs1.getInt("T_qty"));
-		            pstmt.executeUpdate();
-	         }
-	         rs1.close();
-	         
 		    conn.commit();       
 		    conn.setAutoCommit(true);       
 		    pstmt.close();   
@@ -129,8 +79,6 @@
 		} catch(Exception e) {       
 			System.err.println("sql error = " + e.getMessage());         
 		}
-		
-		response.sendRedirect("get_pos_items.jsp?cid="+cid);
 		%>
 </body>
 </html>
