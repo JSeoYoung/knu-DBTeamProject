@@ -189,14 +189,11 @@
 				<button class="btn-sm" id="minusBtn">▼</button>
 			</div>
 			<!-- 이 부분에서 값을 디비에 저장해줍니다 -->
-			<form action="" id="order_form">
 				<div class="row container align-center">
-					<button class="btn-lg btn-primary" id="cardBtn">카드</button>
-					<button class="btn-lg btn-primary" id="cashBtn">현금</button>
+					<button class="btn-lg btn-primary"  id="cardBtn">카드</button>
+					<button class="btn-lg btn-primary"  id="cashBtn">현금</button>
 				</div>
-			</form>
-
-
+		
 		</div>
 
 
@@ -429,7 +426,17 @@
 				temp_menu_name = td.eq(0).text();
 				//$("#ex1_Result1").html(" * 클릭된 Row의 데이터 = " +temp_menu_name);
 			});
-
+		 
+		 
+			$('#cardBtn').click(function() {
+					var URL = "payment.jsp?cid="+<%=cid%>+"&payment=1";
+					window.location.href = encodeURI(URL);
+					});
+			$('#cashBtn').click(function() {
+					var URL = "payment.jsp?cid="+<%=cid%>+"&payment=2";
+					window.location.href = encodeURI(URL);
+				});
+		 
 			//주문 테이블에 있는 모든 행을 삭제하는 코드
 			$('#deleteAllItemsBtn').click(function() {
 				$('#order_table> tbody').empty();
