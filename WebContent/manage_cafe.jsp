@@ -78,7 +78,7 @@
 			<h5>환영합니다.</h5>
 			<hr>
 			<a class="btn btn-primary"  href="manage_cafe.jsp">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
-				href="#clients">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
+				href="get_host_info.jsp">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
 				href="category_register.jsp">카테고리등록</a> 
 				<hr>
 		</div>
@@ -207,8 +207,11 @@
 											
 
 											out.println("<td class='body-item mbr-fonts-style display-7'>");
-											
-											out.println("<a class='btn-primary display-4' style='padding: 6px; margin-right:0.3rem; border-radius: 3px;'>결제내역</a>");
+											Date today = new Date();
+											SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+											String today_date = date.format(today);
+											System.out.println(today_date);
+											out.println("<a class='btn-primary display-4' style='padding: 6px; margin-right:0.3rem; border-radius: 3px;' href='payment_list.jsp?cid="+ cafe_id +"&from_date=" + today_date+ "&to_date"+ today_date+"'>결제내역</a>");
 											out.println("</td>");
 											
 											

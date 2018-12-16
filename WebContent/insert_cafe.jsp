@@ -21,6 +21,7 @@
 		String query = null;
 		String sql = null;
 		int result; 
+		int result2;
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -88,6 +89,16 @@
 			System.out.println(input_c_name + "," + h_sid + "," + input_cc_id + "," + input_c_tel + "," + input_c_addr + "," + input_c_img + "," + input_c_start_date );
 
 			result = pstmt.executeUpdate();
+			
+			sql="create table temp_"+input_c_name+"("+
+					"t_menu varchar2(40),"+
+					"t_qty int,"+
+					"t_price int,"+
+					"t_total int"+
+				")";
+			
+			stmt=conn.createStatement();
+			result2 = stmt.executeUpdate(sql);
 		    
 			if(result == 1){ //성공한 열의 값
 			
@@ -103,8 +114,6 @@
 				System.out.println("cafe insert 실패!!");
 			
 			}
-			
-			//response.sendRedirect(redirectUrl);
 			
 		    conn.commit();       
 		    conn.setAutoCommit(true);       
