@@ -17,7 +17,6 @@
 		String query = null;
 		int result;
 		String cid = request.getParameter("cid");
-		String input_cafename = "";
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -32,20 +31,7 @@
 			System.err.println("sql error = 그럼 여긴가 " + e.getMessage());
 			System.exit(1);
 		}
-		try {
-			query = "select c_name from cafe where c_id=?";
-			PreparedStatement pstmt = null;
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(cid));
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				input_cafename = rs.getString(1);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			System.err.println("sql error = " + e.getMessage());
-			System.exit(1);
-		}
+		
 		try {
 			
 			String action = request.getParameter("action");
@@ -57,25 +43,25 @@
 			System.out.println("value="+action);
 			if(action.equals("plus")){
 				System.out.println("plus");
-				sql = "update Test_TT set t_qty=t_qty+1 where t_menu=?";
+				sql = "update temp_"+cid+" set t_qty=t_qty+1 where t_menu=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, menu_name);
 				pstmt.executeUpdate();
 			} else if(action.equals("minus")){
 				System.out.println("minus");
-				query = "select t_qty from Test_TT where t_menu=?";
+				query = "select t_qty from temp_"+cid+" where t_menu=?";
 				pstmt = conn.prepareStatement(query);
 				pstmt.setString(1, menu_name);
 				ResultSet rs = pstmt.executeQuery();
 				while(rs.next()){
 					int qty = rs.getInt(1);
 					if(qty==1){
-						sql = "delete from Test_TT where t_menu=?";
+						sql = "delete from temp_"+cid+" where t_menu=?";
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, menu_name);
 						pstmt.executeUpdate();
 					} else{
-						sql = "update Test_TT set t_qty=t_qty-1 where t_menu=?";
+						sql = "update temp_"+cid+" set t_qty=t_qty-1 where t_menu=?";
 						pstmt = conn.prepareStatement(sql);
 						pstmt.setString(1, menu_name);
 						pstmt.executeUpdate();

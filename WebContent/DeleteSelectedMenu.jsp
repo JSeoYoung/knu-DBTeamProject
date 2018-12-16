@@ -17,7 +17,6 @@
 		String query = null;
 		int result;
 		String cid = request.getParameter("cid");
-		String input_cafename = "";
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -32,20 +31,7 @@
 			System.err.println("sql error = 그럼 여긴가 " + e.getMessage());
 			System.exit(1);
 		}
-		try {
-			query = "select c_name from cafe where c_id=?";
-			PreparedStatement pstmt = null;
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(cid));
-			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
-				input_cafename = rs.getString(1);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			System.err.println("sql error = " + e.getMessage());
-			System.exit(1);
-		}
+		
 		try {
 			
 			String menu_name = request.getParameter("mname");
@@ -55,7 +41,7 @@
 			
 			String C_name = "KONA";
 			
-			sql = "Delete from Test_TT where t_menu=?";
+			sql = "Delete from temp_"+cid+" where t_menu=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, menu_name);
 			pstmt.executeUpdate();
