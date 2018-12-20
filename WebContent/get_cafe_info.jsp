@@ -60,12 +60,10 @@
 					<%
 					
 					request.setCharacterEncoding("UTF-8");	//한글 깨짐현상 방지
-
 						if (session.getAttribute("signedUserName") != null) {
 							out.println("<li class='nav-item'>");
 							out.println(session.getAttribute("signedUserName") + "님 반갑습니다.</li>");
 							out.println("<li class='nav-item'><a class='nav-link link text-black display-4' href='cafe_register.jsp'>MY PAGE</a></li>");
-
 						}
 					%>
 
@@ -119,14 +117,12 @@
 					<%
 							
 					request.setCharacterEncoding("UTF-8");	//한글 깨짐현상 방지
-
 					String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
 					String user = "dbtp";
 					String pass = "dbtp";
 					Connection conn = null;
 					
 					String query1 = null;
-
 					try {
 						Class.forName("oracle.jdbc.driver.OracleDriver");
 						System.out.println("드라이버 검색 성공!");
@@ -134,35 +130,23 @@
 						System.err.println("error = " + e.getMessage());
 						System.exit(1);
 					}
-
 					try {
 						conn = DriverManager.getConnection(url, user, pass);
 					} catch (SQLException e) {
 						System.err.println("sql error= " + e.getMessage());
 						System.exit(1);
 					}
-
 					try {
-
 						conn.setAutoCommit(false);
 						PreparedStatement pstmt = null;
-
 						//temporary
 						request.setCharacterEncoding("UTF-8");
 						String cafe_id = request.getParameter("cid");
-
-
-
 						query1 = "select * from cafe where c_id=?"; //mc_id와 mc_name을 가져옴
-
 						pstmt = conn.prepareStatement(query1);
-
 						System.out.println(query1);
-
 						pstmt.setString(1, cafe_id); //cafename이 KONA인 카페의 mc_id와 mc_name을 가져오기 위해서
-
 						ResultSet rs = pstmt.executeQuery();
-
 						
 						// 메뉴
 						String c_intro = null;
@@ -170,7 +154,6 @@
 						String c_tel = null;
 						
 						while (rs.next()) {
-
 							
 							c_intro = rs.getString("c_intro"); //c_intro
 							c_addr = rs.getString("c_addr");//c_addr
@@ -205,17 +188,6 @@
 
 
 
-	</section>
-
-	<section class="map1 cid-r9nwQR5Hrm" id="map1-e">
-
-
-
-		<div class="google-map">
-			<iframe frameborder="0" style="border: 0"
-				src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0Dx_boXQiwvdz8sJHoYeZNVTdoWONYkU&amp;q=place_id:ChIJM7bbzvHhZTURelHqeXv3cXo"
-				allowfullscreen=""></iframe>
-		</div>
 	</section>
 
 	<section class="section-table cid-r9nyEz1eYo" id="table1-h">
@@ -258,10 +230,8 @@
 							<%
 							
 					request.setCharacterEncoding("UTF-8");	//한글 깨짐현상 방지
-
 					
 					String query = null;
-
 					try {
 						Class.forName("oracle.jdbc.driver.OracleDriver");
 						System.out.println("드라이버 검색 성공!");
@@ -269,41 +239,27 @@
 						System.err.println("error = " + e.getMessage());
 						System.exit(1);
 					}
-
 					try {
 						conn = DriverManager.getConnection(url, user, pass);
 					} catch (SQLException e) {
 						System.err.println("sql error= " + e.getMessage());
 						System.exit(1);
 					}
-
 					try {
-
 						conn.setAutoCommit(false);
 						PreparedStatement pstmt = null;
-
 						//temporary
 						request.setCharacterEncoding("UTF-8");
 						String cafe_id = request.getParameter("cid");
-
-
-
 						query = "select m_id, m_name, m_price from menu where c_id=?"; //mc_id와 mc_name을 가져옴
-
 						pstmt = conn.prepareStatement(query);
-
 						System.out.println(query);
-
 						pstmt.setString(1, cafe_id); //cafename이 KONA인 카페의 mc_id와 mc_name을 가져오기 위해서
-
 						ResultSet rs = pstmt.executeQuery();
-
 						
 						// 메뉴
-
 						boolean flag = false;
 						while (rs.next()) {
-
 							int id = rs.getInt(1); //mc_id
 							String menu_name = rs.getString("m_name"); //mc_name
 							String menu_price = rs.getString("m_price");//menu price
@@ -311,7 +267,6 @@
 							
 							out.println("<tr><td class='body-item mbr-fonts-style display-7'>" + menu_name + "</td>");
 							out.println("<td class='body-item mbr-fonts-style display-7'>" + menu_price +"원"+ "</td></tr>");
-
 					
 							// 가격 및 메뉴
 						}

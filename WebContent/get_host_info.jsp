@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Site made with Mobirise Website Builder v4.7.6, https://mobirise.com -->
+
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="generator" content="Mobirise v4.7.6, mobirise.com">
@@ -89,27 +89,13 @@
 	</section>
 
 
-	<section class="mbr-section content4 cid-rckzJPKDCD" id="content4-c">
-
-		<div class="container">
-			<div class="media-container-row">
-				<div class="title col-12 col-md-8">
-					<h2 class="align-center pb-3 mbr-fonts-style display-2">" "</h2>
-					<h2 class="align-center pb-3 mbr-fonts-style display-2">
-						<br>
-					</h2>
 
 
-				</div>
-			</div>
-		</div>
-	</section>
 
-
-	<section class="mbr-section article content9 cid-rckzNfVDdj"
+	<section class="mbr-fullscreen mbr-parallax-background"
 		id="content9-d">
 
-<div class="sidenav col-md-2">
+		<div class="sidenav col-md-2">
 			<%
 				String username = (String) session.getAttribute("signedUserName");
 			%>
@@ -118,22 +104,26 @@
 
 			<h5>환영합니다.</h5>
 			<hr>
-			<a class="btn btn-primary"  href="manage_cafe.jsp">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
+			<a class="btn btn-white-outline"  href="manage_cafe.jsp">카페관리</a> <a class="btn btn-primary"
 				href="get_host_info.jsp">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
 				href="category_register.jsp">카테고리등록</a> 
 				<hr>
 		</div>
 
-		<div class="container">
-			<div class="inner-container" style="width: 100%;">
+		<div class="col-md-10">
+			<div class="container center">
+				<h3
+					class="mbr-section-title align-left pb-3 mbr-fonts-style display-2">회원정보</h3>
+
+				<!-- /.row -->
 				<hr class="line" style="width: 25%;">
 				<div class="section-text align-center mbr-fonts-style display-6">
 					<%
 						request.setCharacterEncoding("UTF-8"); //한글 깨짐현상 방지
 
-						String url = "jdbc:oracle:thin:@localhost:1521:oraknu";
-						String user = "dbtp";
-						String pass = "dbtp";
+					      String url = "jdbc:oracle:thin:@localhost:1521:oraknu"; 
+						  String user = "dbtp";
+						  String pass = "dbtp"; 
 						Connection conn = null;
 						String sql = null;
 						String query = null;
@@ -195,16 +185,20 @@
 							System.err.println("sql error = " + e.getMessage());
 						}
 					%>
-				</div>
+	
+		<a class="btn btn-md btn-primary display-4" href="#updateTel">전화번호
+			업데이트</a>
+
+
+
+			
 				<hr class="line" style="width: 25%;">
 			</div>
 		</div>
+		</div>
+
 	</section>
 
-	<div class="mbr-section-btn">
-		<a class="btn btn-md btn-primary display-4" href="#updateTel">전화번호
-			업데이트</a>
-	</div>
 
 
 

@@ -48,9 +48,6 @@
 				String table_name="temp_"+cafe_name;
 			*/
 			
-			
-			
-			String C_name = "KONA";
 			String menu_name = request.getParameter("mname");
 			String _price = request.getParameter("mprice");
 			

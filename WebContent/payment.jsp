@@ -82,7 +82,7 @@
 			pstmt.setInt(1, index);
 			pstmt.setInt(2,Integer.parseInt(cid));
 			pstmt.setInt(3,T_total);
-			pstmt.setString(4,"Ä«µå");
+			pstmt.setString(4,input_payment);
 			pstmt.executeUpdate();
 			
 			stmt=conn.createStatement();

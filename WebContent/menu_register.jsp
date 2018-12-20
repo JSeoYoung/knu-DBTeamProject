@@ -32,6 +32,11 @@
 
 <body>
 
+<% 
+String cafe_id = request.getParameter("cid");
+String cafe_name = (String)request.getParameter("cname"); 
+request.setCharacterEncoding("UTF-8");
+%>
 	<section class="menu cid-r9nsSrdFwK" once="menu" id="menu2-1">
 		<nav
 			class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm">
@@ -56,7 +61,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
 					<li class="nav-item"><a
-						class="nav-link link text-black display-4" href="webPos.html">
+						class="nav-link link text-black display-4" href="get_pos_items.html?cid="<%=cafe_id%>>
 							MY POS </a></li>
 					<li class="nav-item"><a
 						class="nav-link link text-black display-4"
@@ -83,8 +88,8 @@
 
 			<h5>환영합니다.</h5>
 			<hr>
-			<a class="btn btn-white-outline" href="manage_cafe.jsp" id="fontweight4">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
-				href="#clients">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
+			<a class="btn btn-white-outline" href="manage_cafe.jsp" id="fontweight4">카페관리</a> <a class="btn btn-white-outline"
+				href="get_host_info.jsp">회원정보</a> <a class="btn btn-white-outline" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
 				href="category_register.jsp">카테고리등록</a> 
 				<hr>
 				
@@ -101,11 +106,7 @@
 					class="mbr-section-title align-left pb-3 mbr-fonts-style display-2">메뉴
 					등록</h3>
 
-<% 
-String cafe_id = request.getParameter("cid");
-String cafe_name = (String)request.getParameter("cname"); 
-request.setCharacterEncoding("UTF-8");
-%>
+
 <h3 class="mbr-section-title align-left pb-3 mbr-fonts-style"><%=cafe_name %>
 					</h3>
 

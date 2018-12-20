@@ -83,15 +83,15 @@
 			<h5>환영합니다.</h5>
 			<hr>
 			
-				<a class="btn btn-white-outline" href="manage_cafe.jsp">카페관리</a> <a class="btn btn-white-outline" href="#services">매출관리</a> <a class="btn btn-white-outline"
-				href="#clients">회원정보</a> <a class="btn btn-primary" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
+				<a class="btn btn-white-outline" href="manage_cafe.jsp">카페관리</a> <a class="btn btn-white-outline"
+				href="get_host_info.jsp">회원정보</a> <a class="btn btn-primary" href="cafe_register.jsp">카페등록</a> <a class="btn btn-white-outline"
 				href="category_register.jsp">카테고리등록</a> 
 				<hr>
 		</div>
 
-
+	
 		<div class="col-md-10">
-			<div class="container center">
+			<div class="container scroll" style="overflow-y: scroll; height: 570px;">
 				<h3
 					class="mbr-section-title align-left pb-3 mbr-fonts-style display-2">카페
 					등록</h3>

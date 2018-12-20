@@ -27,8 +27,7 @@
 <link rel="stylesheet" href="assets/theme/css/style.css">
 <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css"
 	type="text/css">
-<link rel="stylesheet" href="assets/custom/css/custom.css"
-	type="text/css">
+<link rel="stylesheet" href="assets/custom/css/custom.css"	type="text/css">
 <style>
 .selected {
 	background-color: #aaaaaa;
@@ -207,6 +206,8 @@
 						try {
 
 							PreparedStatement pstmt = null;
+							request.setCharacterEncoding("UTF-8");
+							String cafe_id = request.getParameter("cid");
 
 							query = "select mc_id, mc_name from menu_category where c_id=(select c_id from cafe where c_name=?)"; //c_name이 input_cafename인 cafe의 c_id를 가져온후, mc_id와 mc_name을 가져옴
 
@@ -253,8 +254,7 @@
 				</ul>
 			</nav>
 			<!--  이까지 탭 메뉴를 가져오는 코드  -->
-			<div class="tab-content" style="height: 540px; overflow: auto;"
-				id="menu_items">
+			<div class="tab-content" style="height: 540px; overflow: auto;" id="menu_items">
 				<!--  이 부분에는 메뉴 아이템들이 들어감 -->
 				<%
 					query = "select mc_id, mc_name from menu_category where c_id=(select c_id from cafe where c_name=?) order by mc_id"; //c_name이 input_cafename인 cafe의 c_id를 가져온후, mc_id와 mc_name을 가져옴
@@ -285,7 +285,7 @@
 							}
 							//각 메뉴 카테고리마다 아이템을 가져옴.
 							int cnt = 1;
-							out.println("<div class='row'>");
+							out.println("<div class='row align-items-center'>");
 
 							pstmt.setInt(1, category_id);
 							rs3 = pstmt.executeQuery();
@@ -297,15 +297,10 @@
 
 								System.out.println(menu_name + "  " + menu_price);
 
-								if (cnt % 5 == 0) {
-									out.println("</div>");
-									out.println("<div class='row'>");
-								}
-
-								out.println("<div class='col custom-col btn-white-outline menu-item'>");
-								out.println("<p class='m_name'>" + menu_name + "</p>");
+								out.println("<div class='col custom-col col-md-2 btn-white-outline menu-item' style='height:125px;'>");
+								out.println("<div class='m_name'>" + menu_name + "</div>");
 								out.println("<hr>");
-								out.println("<p class='m_price'>" + menu_price + "</p>");
+								out.println("<div class='m_price' id='" + menu_price + "'>" + menu_price + "</div>");
 								out.println("</div>");
 								cnt++;
 

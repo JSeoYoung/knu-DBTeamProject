@@ -191,7 +191,7 @@
 								stmt = conn.createStatement();
 
 								 
-								query="select c_id, h_id, c_name,cc_id,  (select cc_name from cafe_category where cc_id = c.cc_id) as cc_name from cafe c";
+								query="select c_id, h_id, c_name, cc_id,  (select cc_name from cafe_category where cc_id = c.cc_id) as cc_name, c_img from cafe c";
 								
 								ResultSet rs=stmt.executeQuery(query);
 								
@@ -200,11 +200,17 @@
 									String cafe_category_name = rs.getString("cc_name");
 									String cafe_id = rs.getString("c_id");
 									int host_id = rs.getInt(2);
+									String cafe_image = rs.getString("c_img");
+									System.out.println(cafe_image);
 									
 									out.println("<div class='mbr-gallery-item mbr-gallery-item--p2' data-video-url='false' data-tags='"+ cafe_category_name + "'>");
 									out.println("<a href='get_cafe_info.jsp?cid="+cafe_id +"&cname="+cafe_name +"'>");
 									/*이미지는 추후에 넣기*/
-									out.println("<img src='assets/images/mbr-864x1080-800x1000.jpg'><span class='mbr-gallery-title mbr-fonts-style display-7'>");
+									String str="assets/images/"+cafe_image;
+									%>
+									<img src=<%=str%>>
+									<%
+									out.println("<span class='mbr-gallery-title mbr-fonts-style display-7'>");
 									out.println(cafe_name);
 									out.println("</span></a>");
 						
